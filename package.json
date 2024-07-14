@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "lint": "prettier . --write && eslint . --fix",
     "test": "npx playwright test",
-    "prepare": "husky install"
+    "test:ui": "npm run test -- --ui",
+    "lint": "prettier . --write && eslint . --fix",
+    "lint:ci": "prettier . --check && eslint .",
+    "prepare": "husky"
   },
   "type": "module",
   "keywords": [],
@@ -25,6 +27,10 @@
     "prettier": "^3.3.3",
     "typescript": "^5.5.3",
     "typescript-eslint": "^7.16.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "envalid": "^8.0.0"
   },
   "lint-staged": {
     "*.{js,ts,json,md}": "npm run lint"
