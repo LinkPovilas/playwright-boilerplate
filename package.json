@@ -1,0 +1,32 @@
+{
+  "name": "playwright-pom-boilerplate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "lint": "prettier . --write && eslint . --fix",
+    "test": "npx playwright test",
+    "prepare": "husky install"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "Povilas Linkevicius",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "@playwright/test": "^1.45.1",
+    "@types/eslint__js": "^8.42.3",
+    "@types/node": "^20.14.10",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-unicorn": "^54.0.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,json,md}": "npm run lint"
+  }
+}
