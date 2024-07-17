@@ -6,7 +6,6 @@
     "test": "npx playwright test",
     "test:ui": "npm run test -- --ui",
     "lint": "prettier . --write && eslint . --fix",
-    "lint:ci": "prettier . --check && eslint .",
     "prepare": "husky"
   },
   "type": "module",
