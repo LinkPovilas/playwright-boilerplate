@@ -1,4 +1,4 @@
-import { LoginData } from '../api/user-request';
+import { LoginData } from 'page-objects/login-form';
 
 interface User {
   validUser: LoginData;

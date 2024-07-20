@@ -2,9 +2,9 @@ import { expect, it } from '../fixtures';
 import { user } from '../data/user';
 
 it.describe('Authentication', () => {
-  it('should allow user to login', async ({ loginAs, page }) => {
+  it('should allow user to login', async ({ loginForm, page }) => {
     await page.goto('/');
-    await loginAs(user.validUser);
+    await loginForm.loginAs(user.validUser);
     await expect(page).toHaveURL(/\/contactList/);
   });
 
