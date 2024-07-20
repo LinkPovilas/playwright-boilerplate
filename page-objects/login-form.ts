@@ -1,5 +1,10 @@
 import { PageObject } from './page-object';
 
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
 export class LoginForm extends PageObject {
   get emailField() {
     return this.page.getByPlaceholder('Email');
@@ -23,5 +28,11 @@ export class LoginForm extends PageObject {
 
   async clickSubmit() {
     await this.submitButton.click();
+  }
+
+  async loginAs({ email, password }: LoginData) {
+    await this.enterEmail(email);
+    await this.enterPassword(password);
+    await this.clickSubmit();
   }
 }
