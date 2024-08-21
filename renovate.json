@@ -5,7 +5,7 @@
   "schedule": ["before 5:00am on the first day of the month"],
   "packageRules": [
     {
-      "description": "Automerge non-major updates",
+      "groupName": "automerge non-major updates",
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
     }
