@@ -1,11 +1,12 @@
-import { Component } from '../component';
+import { Step } from 'decorators/step-decorator';
+import { PageObject } from '../page-object';
 
 export interface UserCredentials {
   email: string;
   password: string;
 }
 
-export class SignInForm extends Component {
+export class SignInForm extends PageObject {
   get emailField() {
     return this.page.getByLabel('Email');
   }
@@ -27,6 +28,7 @@ export class SignInForm extends Component {
    *
    * @param {string} email - The email address to be filled into the email field.
    */
+  @Step('Enter email address')
   async enterEmail(email: string) {
     await this.emailField.fill(email);
   }
@@ -36,6 +38,7 @@ export class SignInForm extends Component {
    *
    * @param {string} password - The password to be filled into the password field.
    */
+  @Step('Enter password')
   async enterPassword(password: string) {
     await this.passwordField.fill(password);
   }
@@ -43,6 +46,7 @@ export class SignInForm extends Component {
   /**
    * Clicks the submit button.
    */
+  @Step('Click submit button')
   async clickSubmit() {
     await this.submitButton.click();
   }
@@ -52,6 +56,7 @@ export class SignInForm extends Component {
    *
    * @param {UserCredentials} credentials - The user's email and password.
    */
+  @Step('Login')
   async login({ email, password }: UserCredentials) {
     await this.enterEmail(email);
     await this.enterPassword(password);

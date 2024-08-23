@@ -1,32 +1,37 @@
-import { test as base } from './page-component-test';
-import { ApiKeysPage } from 'page-objects/pages/api-keys-page';
-import { HomePage } from 'page-objects/pages/home-page';
-import { SignInPage } from 'page-objects/pages/sign-in-page';
+import { test as base } from '@playwright/test';
+import { ApiKeyForm } from 'page-objects/api-key/api-key-form';
+import { ApiKeyTable } from 'page-objects/api-key/api-key-table';
+import { EditApiKeyModal } from 'page-objects/api-key/edit-api-key-modal';
+import { SignInForm } from 'page-objects/authentication/sign-in-form';
+import { NavigationBar } from 'page-objects/navigation/navigation-bar';
+import { UserDropdownMenu } from 'page-objects/navigation/user-dropdown-menu';
 
 interface PageObject {
-  singInPage: SignInPage;
-  homePage: HomePage;
-  apiKeysPage: ApiKeysPage;
+  signInForm: SignInForm;
+  userDropdownMenu: UserDropdownMenu;
+  navigationBar: NavigationBar;
+  apiKeyForm: ApiKeyForm;
+  apiKeyTable: ApiKeyTable;
+  editApiKeyModal: EditApiKeyModal;
 }
 
 export const test = base.extend<PageObject>({
-  singInPage: async ({ _navigationBar, _signInForm }, use) => {
-    await use(new SignInPage(_navigationBar, _signInForm));
+  signInForm: async ({ page }, use) => {
+    await use(new SignInForm(page));
   },
-  homePage: async ({ _navigationBar }, use) => {
-    await use(new HomePage(_navigationBar));
+  userDropdownMenu: async ({ page }, use) => {
+    await use(new UserDropdownMenu(page));
   },
-  apiKeysPage: async (
-    { _navigationBar, _apiKeyForm, _apiKeyTable, _editApiKeyModal },
-    use
-  ) => {
-    await use(
-      new ApiKeysPage(
-        _navigationBar,
-        _apiKeyForm,
-        _apiKeyTable,
-        _editApiKeyModal
-      )
-    );
+  navigationBar: async ({ page, userDropdownMenu }, use) => {
+    await use(new NavigationBar(page, userDropdownMenu));
+  },
+  apiKeyForm: async ({ page }, use) => {
+    await use(new ApiKeyForm(page));
+  },
+  apiKeyTable: async ({ page }, use) => {
+    await use(new ApiKeyTable(page));
+  },
+  editApiKeyModal: async ({ page }, use) => {
+    await use(new EditApiKeyModal(page));
   }
 });

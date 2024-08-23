@@ -1,6 +1,7 @@
-import { Component } from '../component';
+import { Step } from 'decorators/step-decorator';
+import { PageObject } from '../page-object';
 
-export class ApiKeyForm extends Component {
+export class ApiKeyForm extends PageObject {
   get apiKeyNameField() {
     return this.page.getByPlaceholder('API key name');
   }
@@ -14,6 +15,7 @@ export class ApiKeyForm extends Component {
    *
    * @param {string} apiKeyName - The value to be filled into the API key name field.
    */
+  @Step('Enter API key name')
   async enterApiKeyName(apiKeyName: string) {
     await this.apiKeyNameField.fill(apiKeyName);
   }
@@ -21,6 +23,7 @@ export class ApiKeyForm extends Component {
   /**
    * Clicks the generate button.
    */
+  @Step('Click generate button')
   async clickGenerate() {
     await this.generateButton.click();
   }
@@ -30,6 +33,7 @@ export class ApiKeyForm extends Component {
    *
    * @param {string} apiKeyName - The name of the API key to be created.
    */
+  @Step('Create a new API key')
   async createApiKey(apiKeyName: string) {
     await this.enterApiKeyName(apiKeyName);
     await this.clickGenerate();

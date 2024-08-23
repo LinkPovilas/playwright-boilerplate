@@ -1,6 +1,7 @@
-import { Component } from '../component';
+import { PageObject } from '../page-object';
+import { Step } from 'decorators/step-decorator';
 
-export class UserDropdownMenu extends Component {
+export class UserDropdownMenu extends PageObject {
   get self() {
     return this.page.locator('#user-dropdown');
   }
@@ -12,6 +13,7 @@ export class UserDropdownMenu extends Component {
   /**
    * Clicks the user dropdown menu.
    */
+  @Step('Click on username')
   async clickSelf() {
     await this.self.click();
   }
@@ -19,6 +21,7 @@ export class UserDropdownMenu extends Component {
   /**
    * Clicks the 'My API keys' link in the user dropdown menu.
    */
+  @Step('Click "My API Keys" link')
   async clickMyApiKeys() {
     await this.myApiKeysLink.click();
   }
@@ -26,6 +29,7 @@ export class UserDropdownMenu extends Component {
   /**
    * Clicks on the user dropdown menu and then clicks on the 'My API keys' link.
    */
+  @Step('Go to "My API Keys"')
   async goToMyApiKeys() {
     await this.clickSelf();
     await this.clickMyApiKeys();
