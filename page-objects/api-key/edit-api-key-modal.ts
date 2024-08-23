@@ -1,6 +1,7 @@
-import { Component } from 'page-objects/components/component';
+import { Step } from 'decorators/step-decorator';
+import { PageObject } from 'page-objects/page-object';
 
-export class EditApiKeyModal extends Component {
+export class EditApiKeyModal extends PageObject {
   get apiKeyNameField() {
     return this.page.getByLabel('API key name');
   }
@@ -14,6 +15,7 @@ export class EditApiKeyModal extends Component {
    *
    * @param {string} apiKeyName - The value to be filled into the API key name field.
    */
+  @Step('Enter API key name')
   async enterApiKeyName(apiKeyName: string) {
     await this.apiKeyNameField.fill(apiKeyName);
   }
@@ -21,6 +23,7 @@ export class EditApiKeyModal extends Component {
   /**
    * Clicks the save button.
    */
+  @Step('Click save button')
   async clickSave() {
     await this.saveButton.click();
   }
@@ -37,6 +40,7 @@ export class EditApiKeyModal extends Component {
    *
    * @param {string} apiKeyName - The new API key name to update.
    */
+  @Step('Update API key name')
   async updateApiKeyName(apiKeyName: string) {
     await this.enterApiKeyName(apiKeyName);
     await this.clickSave();

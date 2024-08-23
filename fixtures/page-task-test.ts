@@ -13,11 +13,11 @@ interface PageTask {
 }
 
 export const test = base.extend<PageTask>({
-  apiKey: async ({ page, apiKeysPage }, use) => {
+  apiKey: async ({ page, apiKeyForm, apiKeyTable }, use) => {
     await page.goto(urlPath.apiKeysPage);
     const name = generateRandomApiKeyName();
-    await apiKeysPage.apiKeyForm.createApiKey(name);
-    const apiKey = await apiKeysPage.apiKeyTable.getApiKeyByName(name);
+    await apiKeyForm.createApiKey(name);
+    const apiKey = await apiKeyTable.getApiKeyByName(name);
     expect(apiKey).toBeTruthy();
     await use({ name, value: apiKey });
   }

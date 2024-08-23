@@ -4,11 +4,11 @@ import { env } from 'env';
 import { test as setup, expect } from 'fixtures';
 import { authFilePath } from 'playwright.config';
 
-setup('authenticate', async ({ page, singInPage }) => {
+setup('authenticate', async ({ page, signInForm }) => {
   await page.goto(urlPath.homePage);
   await expect(page.locator('body')).toContainText(alertMessage.signInOrSignUp);
-  await expect(singInPage.signInForm.rememberMeCheckbox).not.toBeChecked();
-  await singInPage.signInForm.login({
+  await expect(signInForm.rememberMeCheckbox).not.toBeChecked();
+  await signInForm.login({
     email: env.USER_EMAIL,
     password: env.USER_PASSWORD
   });

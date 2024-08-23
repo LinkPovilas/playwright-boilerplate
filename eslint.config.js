@@ -34,5 +34,16 @@ export default tseslint.config(
     rules: {
       'no-empty-pattern': 'off'
     }
+  },
+  {
+    files: ['decorators/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-argument ': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-function-type': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off'
+    }
   }
 );

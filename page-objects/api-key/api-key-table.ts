@@ -1,6 +1,7 @@
-import { Component } from '../component';
+import { Step } from 'decorators/step-decorator';
+import { PageObject } from '../page-object';
 
-export class ApiKeyTable extends Component {
+export class ApiKeyTable extends PageObject {
   get self() {
     return this.page.getByRole('table');
   }
@@ -28,7 +29,8 @@ export class ApiKeyTable extends Component {
    *
    * @param {string} apiKeyName - The name of the API key to edit.
    */
-  async clickEditKeyName(apiKeyName: string) {
+  @Step('Click edit API key name')
+  async clickEditApiKeyName(apiKeyName: string) {
     await this.page
       .getByRole('row', { name: apiKeyName })
       .locator('a')
@@ -41,6 +43,7 @@ export class ApiKeyTable extends Component {
    *
    * @param {string} apiKeyName - The name of the API key to retrieve.
    */
+  @Step('Get an API key by name')
   async getApiKeyByName(apiKeyName: string): Promise<string> {
     const tableRow = this.page.getByRole('row').filter({
       has: this.page.getByRole('cell', { name: apiKeyName })

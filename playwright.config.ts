@@ -21,12 +21,14 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: env.BASE_URL,
-
     /* Set custom attribute to be used in page.getByTestId(testId)  */
     // testIdAttribute: "data-test-id",
-
+    /* Capture screenshot after each test failure. */
+    screenshot: 'only-on-failure',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry'
+    trace: 'on-first-retry',
+    /* Record video only when retrying a test for the first time. */
+    video: 'on-first-retry'
   },
 
   /* Configure projects for major browsers */
