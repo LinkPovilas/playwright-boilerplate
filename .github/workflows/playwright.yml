@@ -48,8 +48,13 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
+      - name: Run only changed Playwright tests
+        if: github.event_name == 'pull_request'
+        run: npm run changed -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+
       - name: Run Playwright tests
-        run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        if: github.event_name != 'pull_request'
+        run: npm test -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - name: Upload blob report to GitHub Actions Artifacts
         if: ${{ !cancelled() }}
