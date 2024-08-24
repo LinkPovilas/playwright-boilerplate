@@ -31,8 +31,8 @@ export class ApiKeyTable extends PageObject {
    */
   @Step('Click edit API key name')
   async clickEditApiKeyName(apiKeyName: string) {
-    await this.page
-      .getByRole('row', { name: apiKeyName })
+    await this.tableRow
+      .filter({ hasText: apiKeyName })
       .locator('a')
       .nth(1)
       .click();
@@ -44,13 +44,13 @@ export class ApiKeyTable extends PageObject {
    * @param {string} apiKeyName - The name of the API key to retrieve.
    */
   @Step('Get an API key by name')
-  async getApiKeyByName(apiKeyName: string): Promise<string> {
-    const tableRow = this.page.getByRole('row').filter({
-      has: this.page.getByRole('cell', { name: apiKeyName })
-    });
-    const apiKeyCell = tableRow.getByRole('cell').first();
-    const apiKey = await apiKeyCell.innerText();
-
-    return apiKey;
+  getApiKeyByName(apiKeyName: string) {
+    return this.tableRow
+      .filter({
+        has: this.tableCell.filter({ hasText: apiKeyName })
+      })
+      .locator(this.tableCell)
+      .first()
+      .innerText();
   }
 }

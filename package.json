@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx playwright test",
+    "changed": "npm test -- --only-changed",
     "ui": "npm test -- --ui",
     "debug": "npm test -- --debug",
     "lint": "prettier . --write && eslint . --fix",
