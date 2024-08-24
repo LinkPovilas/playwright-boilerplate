@@ -9,12 +9,21 @@ interface ApiKey {
 }
 
 interface PageTask {
+  navigateTo: (url: string) => Promise<void>;
   apiKey: ApiKey;
 }
 
 export const test = base.extend<PageTask>({
-  apiKey: async ({ page, apiKeyForm, apiKeyTable }, use) => {
-    await page.goto(urlPath.apiKeysPage);
+  navigateTo: async ({ page }, use) => {
+    const goTo = (url: string) =>
+      expect(async () => {
+        await page.goto(url, { waitUntil: 'domcontentloaded' });
+      }).toPass();
+
+    await use(goTo);
+  },
+  apiKey: async ({ navigateTo, apiKeyForm, apiKeyTable }, use) => {
+    await navigateTo(urlPath.apiKeysPage);
     const name = generateRandomApiKeyName();
     await apiKeyForm.createApiKey(name);
     const apiKey = await apiKeyTable.getApiKeyByName(name);
