@@ -4,8 +4,8 @@ import { env } from 'env';
 import { test as setup, expect } from 'fixtures';
 import { authFilePath } from 'playwright.config';
 
-setup('authenticate', async ({ navigateTo, page, signInForm }) => {
-  await navigateTo(urlPath.homePage);
+setup('authenticate', async ({ page, signInForm }) => {
+  await page.goto(urlPath.homePage);
   await expect(page.getByText(alertMessage.signInOrSignUp)).toBeVisible();
   await expect(signInForm.rememberMeCheckbox).not.toBeChecked();
   await signInForm.login({

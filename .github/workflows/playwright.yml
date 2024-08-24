@@ -48,12 +48,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Run only changed Playwright tests
-        if: github.event_name == 'pull_request'
-        run: npm run changed -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
-
       - name: Run Playwright tests
-        if: github.event_name != 'pull_request'
         run: npm test -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - name: Upload blob report to GitHub Actions Artifacts
@@ -93,3 +88,17 @@ jobs:
           name: html-report--attempt-${{ github.run_attempt }}
           path: playwright-report/
           retention-days: 30
+
+  test-result:
+    if: ${{ github.event_name == 'pull_request' && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: Final Results
+    needs: [test]
+    steps:
+      - run: |
+          result="${{ needs.test.result }}"
+          if [[ $result == "success" || $result == "skipped" ]]; then
+            exit 0
+          else
+            exit 1
+          fi
