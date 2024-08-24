@@ -13,9 +13,9 @@ it.describe('API key management', () => {
 
     await apiKeyTable.clickEditApiKeyName(apiKey.name);
     await editApiKeyModal.updateApiKeyName(newApiKeyName);
-    await expect(page.locator('body')).toContainText(
-      noticeMessage.apiKeyEditedSuccessfully
-    );
+    await expect(
+      page.getByText(noticeMessage.apiKeyEditedSuccessfully)
+    ).toBeVisible();
 
     const sameApiKeyAsBefore = await apiKeyTable.getApiKeyByName(newApiKeyName);
     expect(sameApiKeyAsBefore).toEqual(apiKey.value);
