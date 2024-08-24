@@ -10,6 +10,7 @@ jobs:
   lint:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    name: Lint
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,6 +25,7 @@ jobs:
 
   test:
     needs: lint
+    name: Test
     timeout-minutes: 60
     runs-on: ubuntu-latest
     container:
@@ -63,6 +65,7 @@ jobs:
     if: ${{ !cancelled() }}
     needs: [test]
     runs-on: ubuntu-latest
+    name: Merge Reports
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -92,7 +95,7 @@ jobs:
   test-result:
     if: ${{ github.event_name == 'pull_request' && !cancelled() }}
     runs-on: ubuntu-latest
-    name: Final Results
+    name: Test Results
     needs: [test]
     steps:
       - run: |
