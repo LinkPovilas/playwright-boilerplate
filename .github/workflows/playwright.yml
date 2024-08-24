@@ -50,10 +50,9 @@ jobs:
 
       - name: Run only changed Playwright tests
         if: github.event_name == 'pull_request'
-        run: npm run changed -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        run: npm run changed -- main --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - name: Run Playwright tests
-        if: github.event_name != 'pull_request'
         run: npm test -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - name: Upload blob report to GitHub Actions Artifacts
